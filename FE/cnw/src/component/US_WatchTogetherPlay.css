@@ -10,4 +10,9 @@ video::-moz-range-track {
     margin-bottom: 20px;
     color: white;
     margin-top: 70px;
+    display: flex;
+    justify-content: center;
+}
+.coment-box-play{
+    margin-top: 80px;
 }

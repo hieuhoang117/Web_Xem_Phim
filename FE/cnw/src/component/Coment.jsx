@@ -71,8 +71,10 @@ const CommentBox = ({ contentId, sessionId, user }) => {
 
     // 🔹 auto scroll
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [comments]);
+        if (comments.length > 0) {
+            bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [comments.length]); 
 
     return (
         <div className="comment-box">

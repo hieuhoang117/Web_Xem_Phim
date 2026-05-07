@@ -2,6 +2,7 @@ import Coment from "./Coment.jsx";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import userStore from "../store/useUserStore";
+import "./US_WatchTogetherPlay.css";
 
 const US_WatchTogetherPlay = () => {
     const { id, SessionID } = useParams();
@@ -135,21 +136,26 @@ const US_WatchTogetherPlay = () => {
 
     return (
         <div className="play-watch-title" >
-            <h1>{movie.NameMovie}</h1>
+            <div>
+                <h1>{movie.NameMovie}</h1>
 
-            {notStarted && <div>⏳ Buổi chiếu chưa bắt đầu</div>}
-            {ended && <div>⏹ Buổi chiếu đã kết thúc</div>}
+                {notStarted && <div>⏳ Buổi chiếu chưa bắt đầu</div>}
+                {ended && <div>⏹ Buổi chiếu đã kết thúc</div>}
 
-            {!notStarted && !ended && (
-                <video
-                    ref={videoRef}
-                    src={movie.Film}
-                    controls
-                    style={{ width: "100%" }}
-                />
-            )}
+                {!notStarted && !ended && (
+                    <video
+                        ref={videoRef}
+                        src={movie.Film}
+                        controls
+                        style={{ width: "100%" }}
+                    />
+                )}
+            </div>
+            <div className="coment-box-play">
+                <Coment contentId={movie.ContentID} sessionId={SessionID} user={userId} />
+            </div>
 
-            <Coment contentId={movie.ContentID} sessionId={SessionID} user={userId} />
+
         </div>
     );
 };
