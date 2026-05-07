@@ -58,7 +58,7 @@ const CommentBox = ({ contentId, sessionId, user }) => {
         try {
             await axios.post("http://localhost:5000/api/coment/", {
                 contentId,
-                userId: user.UserID,
+                userId: user,
                 commentText: text,
                 sessionId
             });

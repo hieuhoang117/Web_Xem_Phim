@@ -71,7 +71,7 @@ function App() {
           <Route path="watched" element={<Watched />} />
           <Route path="finding/:searchInput" element={<Finding />} />
           <Route path="watch_together" element={<WatchTogether />} />
-          <Route path="watch_together/play/:id" element={<Watchtogetherplay />} />
+          <Route path="watch_together/play/:id/:SessionID" element={<Watchtogetherplay />} />
         </Route>
 
         <Route path="/info" element={

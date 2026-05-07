@@ -1,0 +1,13 @@
+video::-webkit-media-controls-timeline {
+    display: none !important;
+}
+
+video::-moz-range-track {
+    display: none !important;
+}
+.play-watch-title{
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+    margin-top: 70px;
+}

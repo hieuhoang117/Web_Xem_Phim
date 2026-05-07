@@ -111,7 +111,7 @@ export const getAllSession = async (req, res) => {
 // 🔹 Tạo session mới
 export const createSession = async (req, res) => {
     try {
-        const { contentId, UserID,EndTime,StartTime } = req.body;
+        const { contentId, UserID, EndTime, StartTime } = req.body;
 
         if (!contentId) {
             return res.status(400).json({ message: "ContentID is required" });
@@ -151,6 +151,17 @@ export const endSession = async (req, res) => {
         `;
 
         res.json({ message: "Session ended" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+export const getSessionbyID = async (req, res) => {
+    try {
+        const { sessionId } = req.params;
+        const result = await sql.query`
+            SELECT * FROM WatchSession WHERE SessionID = ${sessionId}
+        `;
+        res.json(result.recordset[0]);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

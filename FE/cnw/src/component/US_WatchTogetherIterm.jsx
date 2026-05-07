@@ -43,7 +43,7 @@ const USWatchIterm = ({ movies, onEndSession }) => {
                     <div className="movie-actions">
                         <button
                             className="btn-join"
-                            onClick={() => navigate(`/user/watch_together/play/${movie.IDmovie}`)}
+                            onClick={() => navigate(`/user/watch_together/play/${movie.IDmovie}/${movie.SessionID}`)}
                         >
                             Tham gia xem
                         </button>
