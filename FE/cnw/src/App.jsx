@@ -30,6 +30,7 @@ import Security from "./component/US_security";
 import ResetPass from "./component/ResetPass";
 import WatchTogether from "./component/US_WatchTogether";
 import Watchtogetherplay from "./component/US_WatchTogetherPlay";
+import Actor from "./component/AM_actor";
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           <Route path="reports" element={<AMReport />} />
           <Route path="series" element={<AMMseries />} />
           <Route path="notifix" element={<AMnotifix />} />
+          <Route path="actor" element={<Actor />} />
         </Route>
 
         <Route path="/user" element={
