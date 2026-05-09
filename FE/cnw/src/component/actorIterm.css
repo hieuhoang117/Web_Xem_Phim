@@ -1,0 +1,36 @@
+.actor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 140px;
+    transition: transform 0.2s ease;
+}
+
+.actor-item:hover {
+    transform: translateY(-4px);
+}
+
+.actor-item img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #444;
+    background-color: #1a1a1a;
+}
+
+.actor-item:hover img {
+    border-color: #e50914;
+}
+
+.actor-item h3 {
+    margin-top: 8px;
+    font-size: 13px;
+    text-align: center;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
