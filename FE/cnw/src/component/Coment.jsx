@@ -6,7 +6,7 @@ const CommentBox = ({ contentId, sessionId, user }) => {
     const [comments, setComments] = useState([]);
     const [text, setText] = useState("");
     const [lastTime, setLastTime] = useState(null);
-    const bottomRef = useRef();
+    const listRef = useRef();
 
 
     // 🔹 load ban đầu
@@ -71,20 +71,19 @@ const CommentBox = ({ contentId, sessionId, user }) => {
 
     // 🔹 auto scroll
     useEffect(() => {
-        if (comments.length > 0) {
-            bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-        }
-    }, [comments.length]); 
+        const el = listRef.current;
+        if (el) el.scrollTop = el.scrollHeight;
+    }, [comments.length]);
 
     return (
         <div className="comment-box">
-            <div className="comment-list">
+            <div className="comment-list" ref={listRef}> {/* ← gắn ref vào đây */}
                 {comments.map((c) => (
                     <div key={c.CommentID} className="comment-item">
                         <b>{c.FullName}</b>: {c.CommentText}
                     </div>
                 ))}
-                <div ref={bottomRef}></div>
+                {/* Bỏ <div ref={bottomRef}> */}
             </div>
 
             <div className="comment-input">
