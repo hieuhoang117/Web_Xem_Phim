@@ -77,13 +77,12 @@ const CommentBox = ({ contentId, sessionId, user }) => {
 
     return (
         <div className="comment-box">
-            <div className="comment-list" ref={listRef}> {/* ← gắn ref vào đây */}
+            <div className="comment-list" ref={listRef}> 
                 {comments.map((c) => (
                     <div key={c.CommentID} className="comment-item">
                         <b>{c.FullName}</b>: {c.CommentText}
                     </div>
                 ))}
-                {/* Bỏ <div ref={bottomRef}> */}
             </div>
 
             <div className="comment-input">
