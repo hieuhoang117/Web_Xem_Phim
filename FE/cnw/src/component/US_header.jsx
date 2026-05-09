@@ -110,7 +110,7 @@ const USHeader = () => {
                 <Space size="middle">
 
                     <Input
-                        placeholder="Tìm kiếm..."
+                        placeholder="Tìm kiếm diễn viên, phim, series,..."
                         style={{ width: 200 }}
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}

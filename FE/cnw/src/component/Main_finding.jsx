@@ -44,14 +44,18 @@ const Main_finding = () => {
     return (
         <div className="main-finding">
             <h1 className="finding-title">Kết quả tìm kiếm theo: "{searchInput}"</h1>
-            <div className="movie-list_actor">
+            
+            <div className="movie-list_genre">
+                <h2 className="finding-title">Danh sách diễn viên</h2>
                 {actors.map((actor) => (
                     <div className="actor-card-wrapper" key={actor.IDactor}>
                         <ActorItem actor={actor} />
                     </div>
                 ))}
             </div>
+            
             <div className="movie-list_genre">
+                <h2 className="finding-title">Danh sách phim</h2>
                 {movie.map((watchedItem) => (
                     <div className="movie-card-wrapper" key={watchedItem.IDmovie}>
                         <MovieItem movie={watchedItem} />
