@@ -1,110 +1,43 @@
+
+
 .mp-player {
+  background: #000;
+  min-height: 100vh;
   position: relative;
-  width: 100%;
-  height: 100vh;
-  background: black;
-  overflow: hidden;
-  margin-top: 50px;
+  margin-top: 70px;
+}
+
+.mp-back {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.mp-back:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .mp-video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 100vh;
+  object-fit: contain;
+  display: block;
 }
 
-/* Back */
-.mp-back {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  font-size: 28px;
-  color: white;
-  background: rgba(0,0,0,0.5);
-  border-radius: 50%;
-  padding: 10px 14px;
-  border: none;
-  cursor: pointer;
-  z-index: 10;
-  transition: 0.3s;
-}
-
-.mp-back:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-/* Controls */
-.mp-controls {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 20px;
-  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.mp-controls.show {
-  opacity: 1;
-}
-
-/* Progress */
-.mp-progress {
-  height: 5px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 10px;
-  cursor: pointer;
-  margin-bottom: 15px;
-  position: relative;
-}
-
-.mp-progress-bar {
-  height: 100%;
-  background: red;
-  border-radius: 10px;
-}
-
-/* Buttons */
-.mp-buttons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.mp-left button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 22px;
-  margin-right: 15px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.mp-left button:hover {
-  transform: scale(1.2);
-}
-
-.mp-right {
+.mp-loading {
+  background: #000;
+  min-height: 100vh;
   display: flex;
   align-items: center;
-}
-
-.mp-right input {
-  margin-right: 10px;
-}
-
-/* Time */
-.mp-time {
-  color: white;
-  font-size: 13px;
-  margin-top: 5px;
-}
-
-/* Title */
-.mp-title {
-  margin-top: 5px;
-  color: white;
-  font-size: 14px;
-  opacity: 0.8;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
 }

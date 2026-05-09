@@ -1,11 +1,10 @@
 import "./Actor_info.css";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import MovieItem from "./Movie_Iterm";
 
 const ActorInfo = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const [actor, setActor] = useState(null);
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true); // ← tách loading riêng
@@ -16,7 +15,7 @@ const ActorInfo = () => {
             try {
                 const [resActor, resMovies] = await Promise.all([
                     fetch(`http://localhost:5000/api/actor/id/${id}`),
-                    fetch(`http://localhost:5000/api/actor/moviesbyactor/${id}`)
+                    fetch(`http://localhost:5000/api/actor/movies/${id}`)
                 ]);
 
                 const actorData = await resActor.json();
