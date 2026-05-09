@@ -132,3 +132,39 @@ export const deleteActorRole = async (req, res) => {
         res.status(500).send("Lỗi server");
     }
 };
+export const getactorbyid = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await sql.query`SELECT * FROM Actor WHERE IDactor = ${id}`;
+        res.json(result.recordset[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Lỗi server");
+    }
+};
+export const getMoviesByActor = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await sql.query`
+            SELECT 
+                ma.IDmovie, 
+                ma.RoleName, 
+                m.NameMovie, 
+                m.Poster,
+                m.Film,
+                m.Category, 
+                m.ReleaseDate,
+                m.Duration,
+                m.Country,
+                m.Description,
+                m.ContentID
+            FROM MovieActor ma
+            LEFT JOIN Movie m ON ma.IDmovie = m.IDmovie
+            WHERE ma.IDactor = ${id}
+        `;
+        res.json(result.recordset);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Lỗi server");
+    }
+};

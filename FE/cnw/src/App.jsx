@@ -30,6 +30,7 @@ import Security from "./component/US_security";
 import ResetPass from "./component/ResetPass";
 import WatchTogether from "./component/US_WatchTogether";
 import Watchtogetherplay from "./component/US_WatchTogetherPlay";
+import Actorinfo from "./component/Actor_info";
 import Actor from "./component/AM_actor";
 
 
@@ -74,7 +75,9 @@ function App() {
           <Route path="finding/:searchInput" element={<Finding />} />
           <Route path="watch_together" element={<WatchTogether />} />
           <Route path="watch_together/play/:id/:SessionID" element={<Watchtogetherplay />} />
+          <Route path="actor/:id" element={<Actorinfo />} />
         </Route>
+
 
         <Route path="/info" element={
           <PrivateRoute>

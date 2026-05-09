@@ -70,7 +70,7 @@ const AM_movie = () => {
       const values = await form.validateFields();
 
       if (editingMovie) {
-        
+
         await fetch(`http://localhost:5000/api/movies/${editingMovie.IDmovie}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -94,6 +94,7 @@ const AM_movie = () => {
 
 
   const columns = [
+    { title: "ID", dataIndex: "IDmovie", },
     { title: "Tên phim", dataIndex: "NameMovie" },
     { title: "Thể loại", dataIndex: "Category" },
     { title: "Thời lượng", dataIndex: "Duration" },

@@ -5,7 +5,7 @@ const ActorItem = ({ actor }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="actor-item" onClick={() => navigate(`/actor/${actor.IDactor}`)}>
+        <div className="actor-item" onClick={() => navigate(`/user/actor/${actor.IDactor}`)}>
             <img 
                 src={actor.Photo || "/default-actor.png"} 
                 alt={actor.ActorName} 
