@@ -26,6 +26,11 @@ const Series_genre = () => {
         "Horror": "Kinh dị",
         "Romance": "Lãng mạn",
         "Sci-fi": "Khoa học viễn tưởng",
+        "Drama": "Drama",
+        "Adventure": "Phiêu lưu",
+        "Fantasy": "Huyền bí",
+        "Thriller": "Giật gân",
+        "Western": "Western",
     };
 
     return (

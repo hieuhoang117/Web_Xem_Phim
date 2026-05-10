@@ -14,12 +14,26 @@ const Menu_movie = () => {
   const [scifi, setScifi] = useState([]);
   const [comedy, setComedy] = useState([]);
   const [topSeries, setTopSeries] = useState([]);
+  const[drama,setDrama]=useState([]);
+  const[adventure,setAdventure]=useState([]);
+  const[fantasy,setFantasy]=useState([]);
+  const[thriller,setThriller]=useState([]);
+  const[western,setWestern]=useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const category = ["Action", "Comedy", "Horror", "Romance", "Sci-fi"];
+        const category = ["Action",
+          "Adventure",
+          "Comedy",
+          "Drama",
+          "Sci-fi",
+          "Fantasy",
+          "Horror",
+          "Romance",
+          "Thriller",
+          "Western"];
 
         const promises = category.map(async (cat) => {
           const res = await fetch(`http://localhost:5000/api/movies/category/${cat}`);
@@ -36,7 +50,21 @@ const Menu_movie = () => {
               break;
             case "Comedy":
               setComedy(data.movies || []);
-
+              break;
+            case "Drama":
+              setDrama(data.movies || []);
+              break;
+            case "Adventure":
+              setAdventure(data.movies || []);
+              break;
+            case "Fantasy":
+              setFantasy(data.movies || []);
+              break;
+            case "Thriller":
+              setThriller(data.movies || []);
+              break;
+            case "Western":
+              setWestern(data.movies || []);
               break;
             case "Horror":
               setHorror(data.movies || []);
@@ -80,7 +108,13 @@ const Menu_movie = () => {
     { key: "Horror", label: "Kinh dị" },
     { key: "Sci-fi", label: "Khoa học viễn tưởng" },
     { key: "Comedy", label: "Hài hước" },
+    { key: "Drama", label: "Drama" },
+    { key: "Adventure", label: "Phiêu lưu" },
+    { key: "Fantasy", label: "Huyền bí" },
+    { key: "Thriller", label: "Giật gân" },
+    { key: "Western", label: "Western" },
   ];
+  
   const menuProps = {
     items: categories,
     onClick: (e) => {
@@ -125,6 +159,31 @@ const Menu_movie = () => {
         <p style={{ color: "white", padding: 20 }}>Đang tải...</p>
       ) : (
         <MovieRow title="Lãng mạn" movies={romance} />
+      )}
+      {drama.length === 0 ? (
+        <p style={{ color: "white", padding: 20 }}>Đang tải...</p>
+      ) : (
+        <MovieRow title="Drama" movies={drama} />
+      )}
+      {adventure.length === 0 ? (
+        <p style={{ color: "white", padding: 20 }}>Đang tải...</p>
+      ) : (
+        <MovieRow title="Phiêu lưu" movies={adventure} />
+      )}
+      {fantasy.length === 0 ? (
+        <p style={{ color: "white", padding: 20 }}>Đang tải...</p>
+      ) : (
+        <MovieRow title="Huyền bí" movies={fantasy} />
+      )}
+      {thriller.length === 0 ? (
+        <p style={{ color: "white", padding: 20 }}>Đang tải...</p>
+      ) : (
+        <MovieRow title="Giật gân" movies={thriller} />
+      )}
+      {western.length === 0 ? (
+        <p style={{ color: "white", padding: 20 }}>Đang tải...</p>
+      ) : (
+        <MovieRow title="Western" movies={western} />
       )}
       {topSeries.length === 0 ? (
         <p style={{ color: "white", padding: 20 }}>Đang tải...</p>
