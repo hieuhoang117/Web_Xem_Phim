@@ -7,7 +7,7 @@ const ActorInfo = () => {
     const { id } = useParams();
     const [actor, setActor] = useState(null);
     const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true); // ← tách loading riêng
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const fetchAll = async () => {
@@ -15,7 +15,7 @@ const ActorInfo = () => {
             try {
                 const [resActor, resMovies] = await Promise.all([
                     fetch(`http://localhost:5000/api/actor/id/${id}`),
-                    fetch(`http://localhost:5000/api/actor/movies/${id}`)
+                    fetch(`http://localhost:5000/api/actor/moviesbyactor/${id}`)
                 ]);
 
                 const actorData = await resActor.json();

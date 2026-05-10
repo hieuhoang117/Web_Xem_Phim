@@ -25,7 +25,7 @@
 }
 
 
-.movie-card {
+.movie-card-iterm {
   position: absolute;
   top: 0;
   left: 0;
@@ -63,12 +63,12 @@
 }
 
 
-.movie-card h4 {
+.movie-card-iterm h4 {
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
 }
-.movie-card p {
+.movie-card-iterm p {
   font-size: 12px;
   color: #e5e5e5;
 }
