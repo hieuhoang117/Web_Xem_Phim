@@ -38,7 +38,7 @@ const US_WatchTogether = () => {
             const data = await res.json();
             console.log("sessions data:", data);
             setSessions(data);
-            
+
 
             if (data.length > 0) {
                 const movieList = await Promise.all(
@@ -77,12 +77,12 @@ const US_WatchTogether = () => {
         fetchContent();
         fetchSessions();
 
-        // Auto refresh mỗi 10 giây
         const interval = setInterval(() => {
             fetchSessions();
         }, 10000);
 
         return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleChange = (e) => {
