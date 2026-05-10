@@ -1,0 +1,63 @@
+/* Nút trigger */
+.report-bug button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #888;
+  background: transparent;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.report-bug button:hover {
+  color: #d9534f;
+  border-color: #f5c6c6;
+  background: #fff5f5;
+}
+
+/* Ant Design Modal tùy chỉnh */
+.ant-modal-title {
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+.ant-form-item-label > label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888;
+  letter-spacing: 0.02em;
+}
+
+.ant-form-item input,
+.ant-form-item select,
+.ant-form-item textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  background: #f9f9f9;
+  outline: none;
+  transition: border-color 0.12s;
+}
+
+.ant-form-item input:focus,
+.ant-form-item select:focus {
+  border-color: #999;
+  background: #fff;
+}
+
+.ant-btn-primary {
+  background: #222 !important;
+  border-color: #222 !important;
+  font-weight: 500;
+}
+
+.ant-btn-primary:hover {
+  opacity: 0.82;
+}
