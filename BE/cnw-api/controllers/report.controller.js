@@ -93,8 +93,8 @@ export const addBugReport = async (req, res) => {
     try {
         const { UserID, ContentID, Title, Description, BugType } = req.body;
         await sql.query`
-      INSERT INTO BugReport (UserID, ContentID, Title, Description, BugType, Status, CreatedAt)
-      VALUES (${UserID}, ${ContentID}, ${Title}, ${Description}, ${BugType}, 'Open', GETDATE())
+      INSERT INTO BugReport (UserID, ContentID, Title, Description, BugType, Status, CreatedAt,UpdatedAt)
+      VALUES (${UserID}, ${ContentID}, ${Title}, ${Description}, ${BugType}, 'Open', GETDATE(), GETDATE())
     `;
         res.json({ message: "Bug report added successfully" });
     } catch (error) {

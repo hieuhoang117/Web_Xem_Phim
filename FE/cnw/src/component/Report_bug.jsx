@@ -17,6 +17,7 @@ const ReportBug = ({ ContentID, UserID }) => {
                     Title: title,
                     Description: description,
                     BugType: bugType,
+                    
                 }),
             });
 

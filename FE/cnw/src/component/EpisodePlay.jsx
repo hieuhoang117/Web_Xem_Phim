@@ -58,6 +58,7 @@ const EpisodePlay = () => {
                 key={episode.IDEpisode}
                 src={episode.film}
                 className="netflix-video"
+                title={`Episode ${episode.IDEpisode}`}
                 allowFullScreen
             />
 

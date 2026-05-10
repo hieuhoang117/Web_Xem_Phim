@@ -29,6 +29,7 @@ const MoviePlay = () => {
             <iframe
                 src={movie.Film}
                 className="mp-video"
+                title={movie.Title}
                 allowFullScreen
             />
             <Report ContentID={movie.ContentID} UserID={userID} />
