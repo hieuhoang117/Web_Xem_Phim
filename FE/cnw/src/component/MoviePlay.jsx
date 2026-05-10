@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import userStore from "../store/useUserStore.js";
-import Report from"./Report_bug.jsx";
+import Report from "./Report_bug.jsx";
 import "./MoviePlay.css";
 
 const MoviePlay = () => {
@@ -25,12 +25,11 @@ const MoviePlay = () => {
             <button className="mp-back" onClick={() => navigate(-1)}>
                 ← Quay lại
             </button>
-            
-            <video
+
+            <iframe
                 src={movie.Film}
-                autoPlay
-                controls
                 className="mp-video"
+                allowFullScreen
             />
             <Report ContentID={movie.ContentID} UserID={userID} />
         </div>

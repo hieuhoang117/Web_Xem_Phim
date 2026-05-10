@@ -37,7 +37,8 @@ export const getEpisodesBySeriesId = async (req, res) => {
         e.ThumbnailURL,
         e.EpisodeDescription,
         s.poster,
-        e.ReleaseDate
+        e.ReleaseDate,
+        e.ContentID
       FROM Episode e LEFT JOIN Series s ON e.IDseries = s.IDseries
       WHERE s.IDseries = ${seriesId}
     `;
@@ -367,7 +368,7 @@ export const addSeriesView = async (req, res) => {
     `;
 
     if (check.recordset.length > 0) {
-    
+
       await sql.query`
         UPDATE EpisodeView
         SET ViewDate = GETDATE(),
@@ -375,7 +376,7 @@ export const addSeriesView = async (req, res) => {
         WHERE UserID = ${userId} AND IDEpisode = ${episodeId}
       `;
     } else {
-      
+
       await sql.query`
         INSERT INTO EpisodeView (UserID, IDEpisode, ViewDate, WatchTime)
         VALUES (${userId}, ${episodeId}, GETDATE(), 0)
