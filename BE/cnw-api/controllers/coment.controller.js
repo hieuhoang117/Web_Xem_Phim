@@ -166,3 +166,16 @@ export const getSessionbyID = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+export const getRandomSession = async (req, res) => {
+    try {
+        const {userId} = req.params;
+        const result = await sql.query`
+            SELECT TOP 9 * FROM WatchSession 
+            WHERE IsLive = 1 AND UserID != ${userId}
+            ORDER BY NEWID()
+        `;
+        res.json(result.recordset);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};

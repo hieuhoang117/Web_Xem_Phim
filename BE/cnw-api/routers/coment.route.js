@@ -7,7 +7,8 @@ import {
     createSession,
     endSession,
     getAllSession,
-    getSessionbyID
+    getSessionbyID,
+    getRandomSession
 } from "../controllers/coment.controller.js";
 
 const router = express.Router();
@@ -21,5 +22,6 @@ router.post("/session", createSession);
 router.post("/session/end", endSession);
 router.get("/session/:id", getAllSession);
 router.get("/session/id/:sessionId", getSessionbyID);
+router.get("/session/random/:userId", getRandomSession);
 
 export default router;

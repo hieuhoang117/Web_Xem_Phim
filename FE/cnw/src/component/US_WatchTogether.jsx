@@ -3,6 +3,7 @@ import USWatchIterm from "./US_WatchTogetherIterm";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import userStore from "../store/useUserStore";
+import USWatchIterm2 from "./US_WatchTogetherIterm2";
 
 const US_WatchTogether = () => {
     const [contents, setContents] = useState([]);
@@ -10,6 +11,8 @@ const US_WatchTogether = () => {
     const [sessions, setSessions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [movies, setMovies] = useState([]);
+    const [othersSession, setOthersSession] = useState([]);
+    const [otherMovies, setOtherMovies] = useState([]);
 
     const userId = userStore((state) => state.userId);
     const formatDate = (date) => date.replace("T", " ") + ":00";
@@ -28,6 +31,35 @@ const US_WatchTogether = () => {
             return data;
         } catch (err) {
             console.error("Error fetching movie:", err);
+        }
+    };
+     const fetchOthersSessions = async () => {
+        try {
+            const res = await fetch(`http://localhost:5000/api/coment/session/random/${userId}`);
+            const data = await res.json();
+            console.log("sessions data:", data);
+            setOthersSession(data);
+
+
+            if (data.length > 0) {
+                const movieList = await Promise.all(
+                    data.map(async (otherSession) => {
+                        const movie = await fetchMovieById(otherSession.ContentID);
+                        return {
+                            ...movie,
+                            SessionID: otherSession.SessionID,
+                            StartTime: otherSession.StartTime,
+                            EndTime: otherSession.EndTime
+                        };
+                    })
+                );
+                setOtherMovies(movieList);
+            } else {
+                setOtherMovies([]);
+            }
+
+        } catch (err) {
+            console.error("Error fetching sessions:", err);
         }
     };
 
@@ -76,6 +108,7 @@ const US_WatchTogether = () => {
     useEffect(() => {
         fetchContent();
         fetchSessions();
+        fetchOthersSessions();
 
         const interval = setInterval(() => {
             fetchSessions();
@@ -150,7 +183,7 @@ const US_WatchTogether = () => {
     return (
         <div className="US_WatchTogether">
             <div className="header-section">
-                <h2>🎬 Các buổi công chiếu của tôi</h2>
+                <h2>🎬 Các buổi công chiếu </h2>
                 <button
                     className="btn-open"
                     onClick={() => setIsopen(true)}
@@ -212,10 +245,20 @@ const US_WatchTogether = () => {
                     </form>
                 </div>
             )}
+            {othersSession.length === 0 ? (
+                <div className="no-sessions">
+                    <p>Chưa có buổi công chiếu nào đang diễn ra</p>
+                </div>
+            ) : (
+                <USWatchIterm2
+                    movies={otherMovies}
+                />
+            )}
+            <h2 className="live-sessions-title" style={{color: "white"}}>Buổi công chiếu của bạn đang diễn ra:</h2>
 
             {sessions.length === 0 ? (
                 <div className="no-sessions">
-                    <p>Chưa có buổi công chiếu nào đang diễn ra</p>
+                    <p>Bạn chưa có buổi công chiếu nào đang diễn ra</p>
                 </div>
             ) : (
                 <USWatchIterm
