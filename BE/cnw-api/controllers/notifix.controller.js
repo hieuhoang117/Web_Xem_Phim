@@ -158,3 +158,22 @@ export const movieseriesfromNotifix = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
+export const getcontentmovieseriesfromNotifix = async (req, res) => {
+    try {
+        const result = await sql.query`
+            SELECT 
+                c.ContentID,
+                c.ContentName,
+                c.ContentType,
+                m.IDmovie,
+                s.IDseries
+            FROM Content c
+            LEFT JOIN Movie m ON c.ContentID = m.ContentID
+            LEFT JOIN Series s ON c.ContentID = s.ContentID
+        `;
+        res.json(result.recordset);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};

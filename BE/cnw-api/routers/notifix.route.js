@@ -1,6 +1,6 @@
 import express from "express";
 import{getNotifix, createNotifix, updateNotifix, deleteNotifix,searchNotifix,getNotificationByCreateAndActive,getcontentNotifix,
-    movieseriesfromNotifix
+    movieseriesfromNotifix,getcontentmovieseriesfromNotifix
 } from "../controllers/notifix.controller.js";
 
 const router = express.Router();
@@ -13,4 +13,5 @@ router.get("/content/:id", movieseriesfromNotifix);
 router.post("/", createNotifix);
 router.put("/:id", updateNotifix);
 router.delete("/:id", deleteNotifix);
+router.get("/contentmovieseries", getcontentmovieseriesfromNotifix);
 export default router;
