@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import userStore from "../store/useUserStore";
 import USWatchIterm2 from "./US_WatchTogetherIterm2";
+import JoinSession from "./joinSesssion";
 
 const US_WatchTogether = () => {
     const [contents, setContents] = useState([]);
@@ -33,11 +34,10 @@ const US_WatchTogether = () => {
             console.error("Error fetching movie:", err);
         }
     };
-     const fetchOthersSessions = async () => {
+    const fetchOthersSessions = async () => {
         try {
             const res = await fetch(`http://localhost:5000/api/coment/session/random/${userId}`);
             const data = await res.json();
-            console.log("sessions data:", data);
             setOthersSession(data);
 
 
@@ -68,7 +68,6 @@ const US_WatchTogether = () => {
         try {
             const res = await fetch(`http://localhost:5000/api/coment/session/${userId}`);
             const data = await res.json();
-            console.log("sessions data:", data);
             setSessions(data);
 
 
@@ -180,10 +179,12 @@ const US_WatchTogether = () => {
         }
     };
 
+
     return (
         <div className="US_WatchTogether">
             <div className="header-section">
                 <h2>🎬 Các buổi công chiếu </h2>
+                <JoinSession />
                 <button
                     className="btn-open"
                     onClick={() => setIsopen(true)}
@@ -254,7 +255,7 @@ const US_WatchTogether = () => {
                     movies={otherMovies}
                 />
             )}
-            <h2 className="live-sessions-title" style={{color: "white"}}>Buổi công chiếu của bạn đang diễn ra:</h2>
+            <h2 className="live-sessions-title" style={{ color: "white" }}>Buổi công chiếu của bạn đang diễn ra:</h2>
 
             {sessions.length === 0 ? (
                 <div className="no-sessions">

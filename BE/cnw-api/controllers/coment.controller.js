@@ -179,3 +179,33 @@ export const getRandomSession = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+export const isSessionLive = async (req, res) => {
+    try {
+        const{ sessionId } = req.params;
+        const result = await sql.query`
+            SELECT IsLive FROM WatchSession WHERE SessionID = ${sessionId}
+        `;
+        res.json({ isLive: result.recordset[0]?.IsLive || false });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+};
+export const getSessionDetail = async (req, res) => {
+    try {
+        const { sessionId } = req.params;
+        const result = await sql.query`
+            SELECT m.IDmovie FROM WatchSession w 
+            left join Movie m on w.ContentID = m.ContentID
+            WHERE w.SessionID = ${sessionId}
+        `;
+
+        if (!result.recordset[0]) {
+            return res.status(404).json({ error: "Session không tồn tại!" });
+        }
+
+        res.json(result.recordset[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
