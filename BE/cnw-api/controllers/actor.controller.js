@@ -6,12 +6,19 @@ export const getActors = async (req, res) => {
 };
 export const getActorRole = async (req, res) => {
     try {
-        const id = req.params.id;
-        const result = await sql.query`SELECT * FROM MovieActor WHERE IDactor = ${id}`;
+        const { id, type } = req.params;
+        let result;
+        if (type === "movie") {
+            const result = await sql.query`SELECT * FROM MovieActor WHERE IDactor = ${id}`;
+        } else if (type === "series") {
+            const result = await sql.query`SELECT * FROM SeriesActor WHERE IDactor = ${id}`;
+        } else {
+            return res.status(400).send("Type không hợp lệ");
+        }
         res.json(result.recordset);
     } catch (err) {
         console.error(err);
-        res.status(500).send("Lỗi server");
+        res.status(500).send("Lỗi server");
     }
 }
 export const getActorById = async (req, res) => {
@@ -118,11 +125,21 @@ export const findRoleByName = async (req, res) => {
 
 export const addActorRole = async (req, res) => {
     try {
+        const type = req.params.type;
         const { IDactor, IDmovie, RoleName } = req.body;
-        await sql.query`
+        if (type === "movie") {
+            await sql.query`
             INSERT INTO MovieActor (IDmovie, IDactor, RoleName) 
             VALUES (${IDmovie}, ${IDactor}, ${RoleName})
         `;
+        } else if (type === "series") {
+            await sql.query`
+            INSERT INTO SeriesActor (IDseries, IDactor, RoleName) 
+            VALUES (${IDmovie}, ${IDactor}, ${RoleName})
+        `;
+        } else {
+            return res.status(400).send("Type không hợp lệ");
+        }
         res.json({ message: "Thêm vai diễn thành công" });
     } catch (err) {
         console.error(err);
@@ -132,13 +149,23 @@ export const addActorRole = async (req, res) => {
 
 export const updateActorRole = async (req, res) => {
     try {
-        const { movieId } = req.params;
+        const { movieId, type } = req.params;
         const { IDactor, RoleName } = req.body;
-        await sql.query`
+        if (type === "movie") {
+            await sql.query`
             UPDATE MovieActor 
             SET RoleName = ${RoleName}
             WHERE IDmovie = ${movieId} AND IDactor = ${IDactor}
         `;
+        } else if (type === "series") {
+            await sql.query`
+            UPDATE SeriesActor
+            SET RoleName = ${RoleName}
+            WHERE IDseries = ${movieId} AND IDactor = ${IDactor}
+        `;
+        } else {
+            return res.status(400).send("Type không hợp lệ");
+        }
         res.json({ message: "Cập nhật vai diễn thành công" });
     } catch (err) {
         console.error(err);
@@ -148,12 +175,22 @@ export const updateActorRole = async (req, res) => {
 
 export const deleteActorRole = async (req, res) => {
     try {
-        const { movieId } = req.params;
+        const { movieId, type } = req.params;
         const { IDactor } = req.body;
-        await sql.query`
+        if (type === "movie") {
+            await sql.query`
             DELETE FROM MovieActor 
             WHERE IDmovie = ${movieId} AND IDactor = ${IDactor}
         `;
+        } else if (type === "series") {
+            await sql.query`
+            DELETE FROM SeriesActor
+            WHERE IDseries = ${movieId} AND IDactor = ${IDactor}
+        `;
+        } else {
+            return res.status(400).send("Type không hợp lệ");
+        }
+
         res.json({ message: "Xóa vai diễn thành công" });
     } catch (err) {
         console.error(err);
