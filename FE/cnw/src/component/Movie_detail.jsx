@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Movie_detail.css";
 import userStore from "../store/useUserStore";
+import ToActor from "./ToActor";
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -114,6 +115,9 @@ const MovieDetail = () => {
             <span>{movie.Director}</span>
           </div>
         </div>
+        <P>D</P>
+
+        <ToActor movieid={movie.IDmovie} />
 
       </div>
     </div>

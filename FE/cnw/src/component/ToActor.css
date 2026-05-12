@@ -1,0 +1,10 @@
+.list-actor-detail{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+.list-actor-detail p:hover{
+    color: blue;
+    cursor: pointer;
+}
