@@ -53,7 +53,7 @@ const MovieDetail = () => {
       });
   }, [id]);
   useEffect(() => {
-      if (!movie) return;
+    if (!movie) return;
     const checkWatchlist = async () => {
       try {
         const res = await fetch(`http://localhost:5000/api/movies/views/${userId}/${id}`);
@@ -114,10 +114,10 @@ const MovieDetail = () => {
             <span>{movie.Country}</span>
             <span>{movie.Director}</span>
           </div>
+          <p>Diễn viên:</p>
+          <ToActor movieid={movie.IDmovie} />
         </div>
-        <P>D</P>
 
-        <ToActor movieid={movie.IDmovie} />
 
       </div>
     </div>
