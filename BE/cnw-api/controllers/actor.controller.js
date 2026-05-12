@@ -94,12 +94,21 @@ export const findRoleByName = async (req, res) => {
     try {
         const { actorId, name } = req.params;
         const likeName = `%${name}%`;
+
         const result = await sql.query`
-            SELECT ma.IDmovie, m.NameMovie, ma.RoleName 
+            SELECT ma.IDmovie AS SourceId, m.NameMovie AS Title, ma.RoleName, 'movie' AS Type
             FROM MovieActor ma
             LEFT JOIN Movie m ON ma.IDmovie = m.IDmovie
             WHERE ma.IDactor = ${actorId} AND ma.RoleName LIKE ${likeName}
+
+            UNION ALL
+
+            SELECT sa.IDseries AS SourceId, s.NameSeries AS Title, sa.RoleName, 'series' AS Type
+            FROM SeriesActor sa
+            LEFT JOIN Series s ON sa.IDseries = s.IDseries
+            WHERE sa.IDactor = ${actorId} AND sa.RoleName LIKE ${likeName}
         `;
+
         res.json(result.recordset);
     } catch (err) {
         console.error(err);
