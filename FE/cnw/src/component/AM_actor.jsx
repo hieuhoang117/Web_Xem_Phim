@@ -270,7 +270,6 @@ const AM_actor = () => {
                     <Form.Item name="Descriptionn" label="Mô tả">
                         <Input />
                     </Form.Item>
-
                     <Form.Item label="Ảnh đại diện">
                         <Upload
                             action="http://localhost:5000/api/upload"
