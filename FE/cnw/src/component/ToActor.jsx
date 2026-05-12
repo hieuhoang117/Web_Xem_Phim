@@ -25,13 +25,17 @@ const ToActor = ({ movieid }) => {
 
     return (
         <div className="list-actor-detail">
-            {actors.map((actor) => (
-                <div key={actor.IDactor}>
-                    <p onClick={() => handleNavigate(actor.IDactor)}>
+            {actors.length === 0 ? (
+                <p>Đang cập nhật diễn viên</p>
+            ) : (
+                actors.map((actor) => (
+                    <div key={actor.IDactor}>
+                        <p onClick={() => handleNavigate(actor.IDactor)}>
                         {actor.ActorName}
                     </p>
                 </div>
-            ))}
+                ))
+            )}
         </div>
     );
 };

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import EpisodeItem from "./EpisodeItem";
 import userStore from "../store/useUserStore";
+import ToActor from "./ToActor";
 
 const SeriesDetail = () => {
     const { id } = useParams();
@@ -131,6 +132,8 @@ const SeriesDetail = () => {
                         <span>{series.Country}</span>
                         <span>{series.Status ? "Đang chiếu" : "Ngừng chiếu"}</span>
                     </div>
+                    <p>Diễn viên:</p>
+                    <ToActor movieid={series.IDseries} />
                 </div>
 
                 {/* Episodes */}
