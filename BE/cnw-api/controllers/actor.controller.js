@@ -14,16 +14,35 @@ export const getActorRole = async (req, res) => {
         res.status(500).send("Lỗi server");
     }
 }
-export const getActorByMovieId = async (req, res) => {
+export const getActorById = async (req, res) => {
     try {
-        const id = req.params.id;
-        const result = await sql.query`SELECT m.IDactor, a.ActorName,a.Nationality,a.BirthDate,a.Descriptionn,m.RoleName FROM MovieActor m left join Actor a on m.IDactor = a.IDactor WHERE IDmovie = ${id}`;
+        const { id, type } = req.params;
+
+        let result;
+        if (type === "movie") {
+            result = await sql.query`
+                SELECT m.IDactor, a.ActorName, a.Nationality, a.BirthDate, a.Descriptionn, m.RoleName 
+                FROM MovieActor m 
+                LEFT JOIN Actor a ON m.IDactor = a.IDactor 
+                WHERE m.IDmovie = ${id}
+            `;
+        } else if (type === "series") {
+            result = await sql.query`
+                SELECT s.IDactor, a.ActorName, a.Nationality, a.BirthDate, a.Descriptionn, s.RoleName 
+                FROM SeriesActor s 
+                LEFT JOIN Actor a ON s.IDactor = a.IDactor 
+                WHERE s.IDseries = ${id}
+            `;
+        } else {
+            return res.status(400).send("Type không hợp lệ");
+        }
+
         res.json(result.recordset);
     } catch (err) {
         console.error(err);
-        res.status(500).send("Lỗi server");
+        res.status(500).send("Lỗi server");
     }
-}
+};
 export const deleteActor = async (req, res) => {
     try {
         const id = req.params.id;

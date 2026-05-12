@@ -2,7 +2,7 @@ import express from "express";
 import {
     getActors,
     getActorByName,
-    getActorByMovieId,
+    getActorById,
     getActorRole,
     addActor,
     addActorRole,
@@ -21,12 +21,12 @@ const router = express.Router();
 
 router.get("/", getActors);
 router.get("/name/:name", getActorByName);
-router.get("/id/:id", getactorbyid);       
+router.get("/id/:id", getactorbyid);
 router.get("/moviesbyactor/:id", getMoviesByActor);
-router.get("/actorbymovie/:id", getActorByMovieId);  
+router.get("/actorby/:type/:id", getActorById);
 
 
-router.get("/role/find/:actorId/:name", findRoleByName); 
+router.get("/role/find/:actorId/:name", findRoleByName);
 router.get("/role/:id", getActorRole);
 router.post("/role/", addActorRole);
 router.put("/role/:movieId", updateActorRole);

@@ -133,7 +133,7 @@ const SeriesDetail = () => {
                         <span>{series.Status ? "Đang chiếu" : "Ngừng chiếu"}</span>
                     </div>
                     <p>Diễn viên:</p>
-                    <ToActor movieid={series.IDseries} />
+                    <ToActor seriesid={series.IDseries} />
                 </div>
 
                 {/* Episodes */}
