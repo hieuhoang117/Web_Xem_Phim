@@ -27,7 +27,7 @@ router.get("/actorby/:type/:id", getActorById);
 
 
 router.get("/role/find/:actorId/:name", findRoleByName);
-router.get("/role/:type/:id", getActorRole);
+router.get("/role/:id", getActorRole);
 router.post("/role/:type", addActorRole);
 router.put("/role/:type/:movieId", updateActorRole);
 router.delete("/role/:type/:movieId", deleteActorRole);

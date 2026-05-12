@@ -6,21 +6,28 @@ export const getActors = async (req, res) => {
 };
 export const getActorRole = async (req, res) => {
     try {
-        const { id, type } = req.params;
-        let result;
-        if (type === "movie") {
-            const result = await sql.query`SELECT * FROM MovieActor WHERE IDactor = ${id}`;
-        } else if (type === "series") {
-            const result = await sql.query`SELECT * FROM SeriesActor WHERE IDactor = ${id}`;
-        } else {
-            return res.status(400).send("Type không hợp lệ");
-        }
+        const { id } = req.params;
+
+        const result = await sql.query`
+            SELECT ma.IDmovie AS SourceId, ma.IDactor, ma.RoleName, 'movie' AS Type, m.NameMovie
+            FROM MovieActor ma
+            LEFT JOIN Movie m ON ma.IDmovie = m.IDmovie
+            WHERE ma.IDactor = ${id}
+
+            UNION ALL
+
+            SELECT sa.IDseries AS SourceId, sa.IDactor, sa.RoleName, 'series' AS Type, s.SeriesName
+            FROM SeriesActor sa
+            LEFT JOIN Series s ON sa.IDseries = s.IDseries
+            WHERE sa.IDactor = ${id}
+        `;
+
         res.json(result.recordset);
     } catch (err) {
         console.error(err);
         res.status(500).send("Lỗi server");
     }
-}
+};
 export const getActorById = async (req, res) => {
     try {
         const { id, type } = req.params;
@@ -103,18 +110,17 @@ export const findRoleByName = async (req, res) => {
         const likeName = `%${name}%`;
 
         const result = await sql.query`
-            SELECT ma.IDmovie AS SourceId, m.NameMovie AS Title, ma.RoleName, 'movie' AS Type
-            FROM MovieActor ma
-            LEFT JOIN Movie m ON ma.IDmovie = m.IDmovie
-            WHERE ma.IDactor = ${actorId} AND ma.RoleName LIKE ${likeName}
+    SELECT ma.IDmovie AS SourceId, m.NameMovie AS NameMovie, ma.RoleName, 'movie' AS Type
+    FROM MovieActor ma
+    LEFT JOIN Movie m ON ma.IDmovie = m.IDmovie
+    WHERE ma.IDactor = ${actorId} AND ma.RoleName LIKE ${likeName}
 
-            UNION ALL
+    UNION ALL
 
-            SELECT sa.IDseries AS SourceId, s.NameSeries AS Title, sa.RoleName, 'series' AS Type
-            FROM SeriesActor sa
-            LEFT JOIN Series s ON sa.IDseries = s.IDseries
-            WHERE sa.IDactor = ${actorId} AND sa.RoleName LIKE ${likeName}
-        `;
+    SELECT sa.IDseries AS SourceId, s.SeriesName AS NameMovie, sa.RoleName, 'series' AS Type
+    FROM SeriesActor sa
+    LEFT JOIN Series s ON sa.IDseries = s.IDseries
+    WHERE sa.IDactor = ${actorId} AND sa.RoleName LIKE ${likeName}`;
 
         res.json(result.recordset);
     } catch (err) {

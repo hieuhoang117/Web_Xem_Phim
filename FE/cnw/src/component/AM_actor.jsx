@@ -1,4 +1,4 @@
-import { Table, Button, Input, Space, Form, Modal,Upload } from "antd";
+import { Table, Button, Input, Space, Form, Modal, Upload, Select } from "antd";
 import { useEffect, useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
 
@@ -10,6 +10,7 @@ const AM_actor = () => {
     const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
     const [editingActor, setEditingActor] = useState(null);
     const [editingRole, setEditingRole] = useState(null);
+    
 
     const [formActor] = Form.useForm();
     const [formRole] = Form.useForm();
@@ -73,9 +74,13 @@ const AM_actor = () => {
         }
     };
 
-    const handleDeleteRole = async (id) => {
+    const handleDeleteRole = async (record) => {
         try {
-            await fetch(`http://localhost:5000/api/actor/role/${id}`, { method: "DELETE" });
+            await fetch(`http://localhost:5000/api/actor/role/${record.type}/${record.IDmovie}`, {
+                method: "DELETE",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ IDactor: selectedActorId })
+            });
             fetchRolesByActor(selectedActorId);
         } catch (err) {
             console.error(err);
@@ -113,19 +118,17 @@ const AM_actor = () => {
     const handleOkRole = async () => {
         try {
             const values = await formRole.validateFields();
-            const payload = {
-                ...values,
-                IDactor: selectedActorId
-            };
+            const { type, IDmovie, RoleName } = values;
+            const payload = { IDactor: selectedActorId, IDmovie, RoleName };
 
             if (editingRole) {
-                await fetch(`http://localhost:5000/api/actor/role/${editingRole.IDmovie}`, {
+                await fetch(`http://localhost:5000/api/actor/role/${type}/${IDmovie}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
                 });
             } else {
-                await fetch("http://localhost:5000/api/actor/role/", {
+                await fetch(`http://localhost:5000/api/actor/role/${type}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
@@ -150,6 +153,7 @@ const AM_actor = () => {
             render: (url) => url && <img src={url} alt="" width={60} style={{ borderRadius: 4 }} />
         },
         { title: "Ngày sinh", dataIndex: "BirthDate", render: (text) => text ? text.split("T")[0] : "" },
+        { title: "Mô tả", dataIndex: "Descriptionn" },
         { title: "Quốc tịch", dataIndex: "Nationality" },
         {
             title: "Action",
@@ -170,7 +174,7 @@ const AM_actor = () => {
     ];
 
     const columnsRole = [
-        { title: "ID Phim", dataIndex: "IDmovie" },
+        { title: "ID Phim", dataIndex: "SourceId" },
         { title: "Vai diễn", dataIndex: "RoleName" },
         {
             title: "Action",
@@ -181,7 +185,7 @@ const AM_actor = () => {
                         formRole.setFieldsValue(record);
                         setIsRoleModalOpen(true);
                     }}>Sửa</Button>
-                    <Button danger onClick={() => handleDeleteRole(record.IDmovie)}>Xóa</Button>
+                    <Button danger onClick={() => handleDeleteRole(record)}>Xóa</Button>
                 </Space>
             )
         }
@@ -294,10 +298,16 @@ const AM_actor = () => {
                 okText="Lưu"
             >
                 <Form form={formRole} layout="vertical">
-                    <Form.Item name="IDmovie" label="ID Phim" rules={[{ required: true, message: "Vui lòng nhập ID phim" }]}>
+                    <Form.Item name="type" label="Loại" rules={[{ required: true }]}>
+                        <Select>
+                            <Select.Option value="movie">Phim</Select.Option>
+                            <Select.Option value="series">Series</Select.Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item name="IDmovie" label="ID Phim/Series" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item name="RoleName" label="Vai diễn" rules={[{ required: true, message: "Vui lòng nhập vai diễn" }]}>
+                    <Form.Item name="RoleName" label="Vai diễn" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
                 </Form>
