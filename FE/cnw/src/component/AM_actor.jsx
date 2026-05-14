@@ -52,11 +52,31 @@ const AM_actor = () => {
             console.error(err);
         }
     };
+    const handleFindActorbyid = async (id) => {
+        try {
+            if (!id) { fetchActors(); return; }
+            const res = await fetch(`http://localhost:5000/api/actor/agetbyID/${id}`);
+            const data = await res.json();
+            setActors(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     const handleFindRole = async (name) => {
         try {
             if (!name) { fetchRolesByActor(selectedActorId); return; }
             const res = await fetch(`http://localhost:5000/api/actor/role/find/${selectedActorId}/${name}`);
+            const data = await res.json();
+            setActorRoles(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+     const handleFindRolebyid = async (id) => {
+        try {
+            if (!id) { fetchRolesByActor(selectedActorId); return; }
+            const res = await fetch(`http://localhost:5000/api/actor/roleByID/${selectedActorId}/${id}`);
             const data = await res.json();
             setActorRoles(data);
         } catch (err) {
@@ -211,6 +231,11 @@ const AM_actor = () => {
                 style={{ marginBottom: 16, width: 300 }}
                 onChange={(e) => handleFindActor(e.target.value)}
             />
+            <Input
+                placeholder="Tìm kiếm theo ID diễn viên"
+                style={{ marginBottom: 16, width: 300 }}
+                onChange={(e) => handleFindActorbyid(e.target.value)}
+             />
             <Table
                 dataSource={actors}
                 columns={columnsActor}
@@ -242,6 +267,11 @@ const AM_actor = () => {
                 style={{ marginBottom: 16, width: 300 }}
                 onChange={(e) => handleFindRole(e.target.value)}
             />
+            <Input
+                placeholder="Tìm kiếm theo ID phim/series"
+                style={{ marginBottom: 16, width: 300 }}
+                onChange={(e) => handleFindRolebyid(e.target.value)}
+             />
             <Table
                 dataSource={actorRoles}
                 columns={columnsRole}

@@ -12,7 +12,9 @@ import {
     updateActorRole,
     findRoleByName,
     getactorbyid,
-    getMoviesByActor
+    getMoviesByActor,
+    findRoleByID,
+    findActorByID
 } from "../controllers/actor.controller.js";
 
 const router = express.Router();
@@ -24,9 +26,12 @@ router.get("/name/:name", getActorByName);
 router.get("/id/:id", getactorbyid);
 router.get("/moviesbyactor/:id", getMoviesByActor);
 router.get("/actorby/:type/:id", getActorById);
+router.get("/agetbyID/:id", findActorByID);
+
 
 
 router.get("/role/find/:actorId/:name", findRoleByName);
+router.get("/roleByID/:actorId/:id", findRoleByID);
 router.get("/role/:id", getActorRole);
 router.post("/role/:type", addActorRole);
 router.put("/role/:type/:movieId", updateActorRole);

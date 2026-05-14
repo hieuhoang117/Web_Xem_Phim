@@ -103,6 +103,16 @@ export const getActorByName = async (req, res) => {
         res.status(500).send("Lỗi server");
     }
 };
+export const findActorByID = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const result = await sql.query`SELECT * FROM Actor WHERE IDactor = ${id}`;
+        res.json(result.recordset);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Lỗi server");
+    }
+};
 
 export const findRoleByName = async (req, res) => {
     try {
@@ -121,6 +131,29 @@ export const findRoleByName = async (req, res) => {
     FROM SeriesActor sa
     LEFT JOIN Series s ON sa.IDseries = s.IDseries
     WHERE sa.IDactor = ${actorId} AND sa.RoleName LIKE ${likeName}`;
+
+        res.json(result.recordset);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Lỗi server");
+    }
+};
+export const findRoleByID = async (req, res) => {
+    try {
+        const { actorId, id } = req.params;
+
+        const result = await sql.query`
+    SELECT ma.IDmovie AS SourceId, m.NameMovie AS NameMovie, ma.RoleName, 'movie' AS Type
+    FROM MovieActor ma
+    LEFT JOIN Movie m ON ma.IDmovie = m.IDmovie
+    WHERE ma.IDactor = ${actorId} AND ma.IDmovie = ${id}
+
+    UNION ALL
+
+    SELECT sa.IDseries AS SourceId, s.SeriesName AS NameMovie, sa.RoleName, 'series' AS Type
+    FROM SeriesActor sa
+    LEFT JOIN Series s ON sa.IDseries = s.IDseries
+    WHERE sa.IDactor = ${actorId} AND sa.IDseries = ${id}`;
 
         res.json(result.recordset);
     } catch (err) {
