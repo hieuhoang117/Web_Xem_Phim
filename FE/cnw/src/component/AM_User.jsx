@@ -9,7 +9,7 @@ const AM_User = () => {
   const [editingUser, setEditingUser] = useState(null);
   const [form] = Form.useForm();
 
-  
+
   const fetchuser = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/users");
@@ -37,19 +37,35 @@ const AM_User = () => {
 
   const handleFinUser = async (email) => {
     try {
-    if (!email) {
-      fetchuser(); 
-      return;
-    }
+      if (!email) {
+        fetchuser();
+        return;
+      }
 
-    const res = await fetch(
-      `http://localhost:5000/api/users/email/${(email)}`
-    );
-    const data = await res.json();
-    setUsers(data);
-  } catch (err) {
-    console.error(err);
-  }
+      const res = await fetch(
+        `http://localhost:5000/api/users/email/${(email)}`
+      );
+      const data = await res.json();
+      setUsers(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+   const handleFinUserbyID = async (id) => {
+    try {
+      if (!id) {
+        fetchuser();
+        return;
+      }
+
+      const res = await fetch(
+        `http://localhost:5000/api/users/all/${(id)}`
+      );
+      const data = await res.json();
+      setUsers(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleEdit = (record) => {
@@ -93,18 +109,20 @@ const AM_User = () => {
     { title: "ID", dataIndex: "UserID" },
     { title: "Tên người dùng", dataIndex: "FullName" },
     { title: "Email", dataIndex: "Email" },
-    { title: "Trạng thái",
+    {
+      title: "Trạng thái",
       render: (value) => (value === true ? "Hoạt động" : "Ngưng hoạt động"),
       dataIndex: "Status"
     },
     { title: "Điện thoại", dataIndex: "Phone" },
     { title: "Vai trò", dataIndex: "Role" },
-    {title : "Mật khẩu", dataIndex: "PasswordHash"},
-    {title:"Trang thái",
+    { title: "Mật khẩu", dataIndex: "PasswordHash" },
+    {
+      title: "Trang thái",
       render: (value) => (value === true ? "Hoạt động" : "Ngưng hoạt động"),
-      dataIndex:"Status",
+      dataIndex: "Status",
     },
-    {title : "Ngày tạo", dataIndex: "CreatedAt"},
+    { title: "Ngày tạo", dataIndex: "CreatedAt" },
     {
       title: "Hành động",
       render: (record) => (
@@ -133,6 +151,11 @@ const AM_User = () => {
         placeholder="Tìm theo email..."
         onChange={(e) => handleFinUser(e.target.value)}
       />
+      <Input
+        style={{ marginBottom: 15 }}
+        placeholder="Tìm theo ID..."
+        onChange={(e) => handleFinUserbyID(e.target.value)}
+        ></Input>
 
       <Table columns={columns} dataSource={users} rowKey="UserID" pagination={{ pageSize: 5 }} />
 

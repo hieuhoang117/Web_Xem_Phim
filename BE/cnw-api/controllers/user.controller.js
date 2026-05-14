@@ -317,3 +317,18 @@ export const resetPassword = async (req, res) => {
     res.status(500).send("Lỗi server");
   }
 };
+export const getUserByID2 = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const result = await sql.query`
+      SELECT * FROM Users 
+      WHERE UserID = ${id}
+    `;
+
+    res.json(result.recordset);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Lỗi server");
+  }
+};

@@ -1,6 +1,6 @@
 import express from "express";
 import { checkEmail,getUsers,addUser,deleteUser,fixUser,getUserByEmail,getMovieSeriesWatchedByUser,
-    sendOTP,verifyOTP,checkEmailNew ,getUserbyId,changeEmail,changePassword,resetPassword
+    sendOTP,verifyOTP,checkEmailNew ,getUserbyId,changeEmail,changePassword,resetPassword,getUserByID2
  } from "../controllers/user.controller.js";
 
 const router = express.Router();
@@ -19,5 +19,6 @@ router.get("/id/:id", getUserbyId);
 router.put("/change-email/:id", changeEmail);
 router.put("/change-password/:id", changePassword);
 router.post("/reset-password", resetPassword);
+router.get("/all/:id", getUserByID2);
 
 export default router;

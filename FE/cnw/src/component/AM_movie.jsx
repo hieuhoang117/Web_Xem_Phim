@@ -91,7 +91,22 @@ const AM_movie = () => {
       console.error(err);
     }
   };
+  const handleFinmoviebyID = async (id) => {
+    try {
+      if (!id) {
+        fetchMovies();
+        return;
+      }
 
+      const res = await fetch(
+        `http://localhost:5000/api/movies/all/${id}`
+      );
+      const data = await res.json();
+      setMovies(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const columns = [
     { title: "ID", dataIndex: "IDmovie", },
@@ -155,6 +170,11 @@ const AM_movie = () => {
         style={{ marginBottom: 15 }}
         placeholder="Tìm theo tên phim..."
         onChange={(e) => handleFinmovie(e.target.value)}
+      />
+      <Input
+        style={{ marginBottom: 15 }}
+        placeholder="Tìm theo ID..."
+        onChange={(e) => handleFinmoviebyID(e.target.value)}
       />
 
       <Table columns={columns} dataSource={movies} rowKey="IDmovie" pagination={{ pageSize: 5 }} />
