@@ -1,7 +1,7 @@
 import express from "express";
 import { getSeries,getEpisodesBySeriesId,addSeries,getTopSeries,
     deleteSeries,updateSeries,finseries,addEpisode,getseriesByid,getEpisodeById,addSeriesView,deleteSeriesView,isAddedToWatchlist,
-deleteEpisode,findEpisode,updateEpisode } from "../controllers/series.controller.js";
+deleteEpisode,findEpisode,updateEpisode,finseriesbyID,findEpisodebyID } from "../controllers/series.controller.js";
 const router = express.Router();
 
 router.get("/", getSeries);
@@ -20,5 +20,7 @@ router.get("/episodes/find/:seriesId/:name", findEpisode);
 router.get("/episodes/:id", getEpisodeById);
 router.get("/series/:seriesId", getseriesByid);
 router.put("/episodes/:id", updateEpisode);
+router.get("/all/:id", finseriesbyID);
+router.get("/episodes/all/:seriesId/:name", findEpisodebyID);
 
 export default router;

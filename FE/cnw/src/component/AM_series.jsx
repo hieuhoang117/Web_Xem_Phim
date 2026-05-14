@@ -59,6 +59,22 @@ const AM_series = () => {
             console.error(err);
         }
     };
+    const handleFinseriebyid = async (id) => {
+        try {
+            if (!id) {
+                fetchSeries();
+                return;
+            }
+
+            const res = await fetch(
+                `http://localhost:5000/api/series/all/${id}`
+            );
+            const data = await res.json();
+            setSeries(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
     const columns = [
         { title: "ID", dataIndex: "IDseries" },
         { title: "Tên series", dataIndex: "SeriesName" },
@@ -186,6 +202,23 @@ const AM_series = () => {
             console.error(err);
         }
     };
+    const handleFinEpisodebyID = async (id) => {
+        try {
+            if (!id) {
+                handleepisodefromseries(selectedSeriesId);
+                return;
+            }
+
+            const res = await fetch(
+                `http://localhost:5000/api/series/episodes/all/${selectedSeriesId}/${id}`
+            );
+
+            const data = await res.json();
+            setEpisodes(data);
+        } catch (err) {
+            console.error(err);
+        }
+    };
     const handleDeleteSeries = async (id) => {
         try {
             await fetch(`http://localhost:5000/api/series/${id}`, { method: "DELETE" });
@@ -285,6 +318,9 @@ const AM_series = () => {
             <Input placeholder="Tìm kiếm theo tên series" style={{ marginBottom: 16, width: 300 }}
                 onChange={(e) => handleFinserie(e.target.value)}
             />
+            <Input placeholder="Tìm kiếm theo ID" style={{ marginBottom: 16, width: 300 }}
+                onChange={(e) => handleFinseriebyid(e.target.value)}
+             />
             <Table dataSource={series} onRow={(record) => ({
                 onClick: () => {
                     setSelectedSeriesId(record.IDseries);
@@ -306,6 +342,7 @@ const AM_series = () => {
                 Thêm tập phim
             </Button>
             <Input onChange={(e) => handleFinEpisode(e.target.value)} placeholder="Tìm kiếm theo tên tập phim" style={{ marginBottom: 16, width: 300 }} />
+            <Input onChange={(e) => handleFinEpisodebyID(e.target.value)} placeholder="Tìm kiếm theo ID tập phim" style={{ marginBottom: 16, width: 300 }} />
             <Table dataSource={episodes} columns={columnsepisodes} rowKey="IDEpisode" pagination={{ pageSize: 5 }} />
             <Modal
                 title={editingSeries ? "Sửa series" : "Thêm series"}

@@ -95,6 +95,29 @@ export const finseries = async (req, res) => {
     res.status(500).send("Lỗi server");
   }
 };
+export const finseriesbyID = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await sql.query`
+            SELECT 
+                IDseries, 
+                SeriesName,
+                Description,
+                ReleaseYear,  
+                Country,
+                Status,
+                ContentID,
+                poster,
+                Category
+            FROM Series
+            WHERE IDseries = ${id}
+        `;
+    res.json(result.recordset);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Lỗi server");
+  }
+};
 export const addSeries = async (req, res) => {
   try {
     const data = req.body;
@@ -217,6 +240,34 @@ export const findEpisode = async (req, res) => {
         ReleaseDate
       FROM Episode
       WHERE EpisodeName LIKE ${"%" + name + "%"}
+      AND IDseries = ${seriesId}
+    `;
+
+    res.json(result.recordset);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Lỗi server");
+  }
+};
+export const findEpisodebyID = async (req, res) => {
+  try {
+    const { id, seriesId } = req.params;
+
+    const result = await sql.query`
+      SELECT 
+        IDEpisode,
+        EpisodeName,
+        EpisodeNumber,
+        SeasonNumber,
+        ContentID,
+        Duration,
+        IDseries,
+        film, 
+        ThumbnailURL,
+        EpisodeDescription,
+        ReleaseDate
+      FROM Episode
+      WHERE IDEpisode = ${id}
       AND IDseries = ${seriesId}
     `;
 
