@@ -44,20 +44,17 @@ const US_WatchTogetherPlay = () => {
 
         const video = videoRef.current;
 
-        // ✅ Bù múi giờ +7
         const OFFSET = 7 * 60 * 60 * 1000;
         const startTime = new Date(session.StartTime).getTime() - OFFSET;
         const endTime = new Date(session.EndTime).getTime() - OFFSET;
         const now = Date.now();
 
 
-        // ✅ Check ended TRƯỚC
         if (now > endTime) {
             setEnded(true);
             return;
         }
 
-        // ✅ Check chưa bắt đầu SAU
         if (now < startTime) {
             setNotStarted(true);
             return;
@@ -71,7 +68,6 @@ const US_WatchTogetherPlay = () => {
             video.muted = true;
 
             video.play().then(() => {
-                // ✅ Chờ 500ms rồi mới unmute
                 setTimeout(() => {
                     video.muted = false;
                 }, 500);

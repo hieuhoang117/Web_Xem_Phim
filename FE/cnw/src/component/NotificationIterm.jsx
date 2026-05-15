@@ -29,7 +29,6 @@ const NotificationItem = ({ notification, onClick }) => {
                 }}
             />
 
-            {/* NỘI DUNG */}
             <div style={{ flex: 1 }}>
                 <Text strong style={{ color: "white", display: "block" }}>
                     {notification.Title}

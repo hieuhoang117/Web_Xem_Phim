@@ -1,4 +1,5 @@
 import "./EpisodeItem.css";
+import logo from "../logo.png";
 
 const EpisodeItem = ({ ep, onClick }) => {
   return (
@@ -7,7 +8,7 @@ const EpisodeItem = ({ ep, onClick }) => {
    
       <div className="episode-thumb">
         <img
-          src={ep.ThumbnailURL || ep.poster || "https://via.placeholder.com/150"}
+          src={ep.ThumbnailURL || ep.poster || logo}
           alt={ep.EpisodeName}
         />
       </div>

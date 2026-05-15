@@ -38,7 +38,6 @@ const SignUp = () => {
             return;
         }
 
-        // ✅ check email trước
         const exists = await handlecheckEmail();
         if (exists) {
             setError("Email đã tồn tại");
@@ -62,7 +61,7 @@ const SignUp = () => {
         }
     };
 
-    // verify OTP + đăng ký
+
     const handleVerify = async (e) => {
         e.preventDefault();
         setError("");
@@ -79,7 +78,7 @@ const SignUp = () => {
                 return;
             }
 
-            // OTP đúng → tạo tài khoản
+        
             const register = await fetch("http://localhost:5000/api/users/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },

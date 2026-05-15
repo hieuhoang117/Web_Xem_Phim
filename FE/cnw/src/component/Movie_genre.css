@@ -6,7 +6,6 @@
     margin-top: 60px;
 }
 
-/* Title đẹp hơn */
 .genre-title {
     font-size: 32px;
     font-weight: 600;
@@ -22,30 +21,25 @@
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 25px;
 
-    /* THÊM */
     overflow: visible;
 }
 
-/* Card */
 .movie-card-wrapper {
     border-radius: 10px;
 
-    /* FIX */
     position: relative;
-    overflow: visible; /* đổi từ hidden -> visible */
+    overflow: visible; 
 
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
-/* Hover */
 .movie-card-wrapper:hover {
     transform: scale(1.1);
     z-index: 10; /* tăng cao lên */
 }
 
 
-/* Nếu MovieItem là img */
 .movie-card-wrapper img {
     width: 100%;
     height: 260px;

@@ -22,7 +22,7 @@ const MovieItem = ({ movie }) => {
 
       {hovered && (
         <div className="movie-card-iterm">
-          <h4>{movie.NameMovie || movie.SeriesName}</h4>
+          <h4>{movie.NameMovie || movie.SeriesName||movie.Title}</h4>
 
           <p>
             {movie.movieDescription ||

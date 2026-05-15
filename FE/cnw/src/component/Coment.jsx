@@ -29,7 +29,6 @@ const CommentBox = ({ contentId, sessionId, user }) => {
 
     // 🔹 polling realtime (mỗi 2s)
     useEffect(() => {
-        console.log("sessionId", sessionId);
 
         if (!sessionId) return;
 

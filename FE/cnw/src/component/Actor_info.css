@@ -62,7 +62,7 @@
     gap: 20px;
 }
 
-.movie-card {
+/* .movie-card {
     cursor: pointer;
     border-radius: 8px;
     overflow: hidden;
@@ -95,7 +95,7 @@
 .role-tag {
     font-size: 12px;
     color: #e50914;
-}
+} */
 
 /* ── Loading ── */
 .actor-loading {
@@ -103,17 +103,4 @@
     padding: 80px;
     color: #aaa;
     font-size: 16px;
-}
-
-/* ── Responsive ── */
-@media (max-width: 600px) {
-    .actor-profile {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .actor-meta {
-        justify-content: center;
-    }
 }

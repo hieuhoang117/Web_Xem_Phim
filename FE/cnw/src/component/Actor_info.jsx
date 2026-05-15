@@ -2,12 +2,13 @@ import "./Actor_info.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MovieItem from "./Movie_Iterm";
+import logo from "../logo.png";
 
 const ActorInfo = () => {
     const { id } = useParams();
     const [actor, setActor] = useState(null);
     const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchAll = async () => {
@@ -26,7 +27,7 @@ const ActorInfo = () => {
             } catch (err) {
                 console.error(err);
             } finally {
-                setLoading(false); 
+                setLoading(false);
             }
         };
 
@@ -34,15 +35,14 @@ const ActorInfo = () => {
     }, [id]);
 
     if (loading) return <div className="actor-loading">Đang tải...</div>;
-    if (!actor) return <div className="actor-loading">Không tìm thấy diễn viên</div>;
 
     return (
         <div className="actor-info">
             <div className="actor-profile">
                 <img
-                    src={actor.Photo || "/default-actor.png"}
+                    src={actor.Photo || logo}
                     alt={actor.ActorName}
-                    onError={(e) => e.target.src = "/default-actor.png"}
+                    onError={(e) => e.target.src = logo}
                 />
                 <div className="actor-details">
                     <h1>{actor.ActorName}</h1>
