@@ -14,7 +14,6 @@
   color: white;
 }
 
-/* overlay gradient cho giống Netflix */
 .descrip::before {
   content: "";
   position: absolute;

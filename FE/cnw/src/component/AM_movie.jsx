@@ -257,7 +257,7 @@ const AM_movie = () => {
 
           <Form.Item label="Poster">
             <Upload
-              action="http://localhost:5000/api/upload"
+              action="http://localhost:5000/api/upload"              
               listType="picture"
               maxCount={1}
               onChange={(info) => {
