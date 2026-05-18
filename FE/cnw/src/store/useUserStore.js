@@ -6,17 +6,20 @@ const userStore = create(
     (set) => ({
       userId: null,
       token: null,
+      role: null,
 
-      login: (userId, token) =>
+      login: (userId, token, role) =>
         set({
           userId,
-          token
+          token,
+          role
         }),
 
       logout: () =>
         set({
           userId: null,
-          token: null
+          token: null,
+          role: null
         })
     }),
     {

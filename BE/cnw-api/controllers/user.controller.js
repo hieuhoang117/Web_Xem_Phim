@@ -1,7 +1,10 @@
 import e from "cors";
 import nodemailer from "nodemailer";
 import { sql } from "../db.js";
-// LAM TOKEN SAU
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const checkEmail = async (req, res) => {
   try {
@@ -15,11 +18,17 @@ export const checkEmail = async (req, res) => {
 
     if (result.recordset.length > 0) {
       const user = result.recordset[0];
+      const token = jwt.sign(
+        { userId: user.UserID, role: user.Role },
+        process.env.JWT_SECRET,
+        { expiresIn: "7d" }
+      );
 
       return res.json({
         exists: true,
         role: user.Role,
-        userId: user.UserID
+        userId: user.UserID,
+        token
       });
     } else {
       return res.json({ exists: false });

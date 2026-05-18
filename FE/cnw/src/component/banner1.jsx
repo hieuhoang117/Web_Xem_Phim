@@ -31,7 +31,7 @@ const Banner = () => {
       return;
     }
 
-    login(data.userId, data.token);
+    login(data.userId, data.token, data.role);
 
     if (data.role === "Admin") {
       navigate("/admin");
