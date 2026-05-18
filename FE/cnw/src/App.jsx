@@ -43,7 +43,7 @@ function App() {
         <Route path="/Forgot" element={<ResetPass />} />
 
         <Route path="/admin" element={
-          <PrivateRoute>
+          <PrivateRoute requiredRole="Admin">
             <AdminPage />
           </PrivateRoute>
         }>
@@ -56,7 +56,7 @@ function App() {
         </Route>
 
         <Route path="/user" element={
-          <PrivateRoute>
+          <PrivateRoute requiredRole="User">
             <UserPage />
           </PrivateRoute>
         }>
@@ -80,7 +80,7 @@ function App() {
 
 
         <Route path="/info" element={
-          <PrivateRoute>
+          <PrivateRoute requiredRole="User">
             <InfoUser />
           </PrivateRoute>
         }>
