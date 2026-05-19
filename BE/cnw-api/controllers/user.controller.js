@@ -190,8 +190,8 @@ ORDER BY LastWatch DESC
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "hieuhoangminh2403@gmail.com",
-    pass: "ivnwnzecntiexcbi"
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 
@@ -209,7 +209,7 @@ export const sendOTP = async (req, res) => {
     };
 
     await transporter.sendMail({
-      from: "hieuhoangminh2403@gmail.com",
+      from: process.env.EMAIL_USER,
       to: email,
       subject: "Mã xác nhận",
       text: `OTP của bạn là: ${otp}`
